@@ -1,0 +1,105 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block branding %}
+    <h1 id="site-name">{% trans 'MediaMosa' %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="content-main">
+        <h1>{{ object.dublin_core.title }}</h1>
+
+        <h2>Dublin Core</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metadata</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for key,value in object.dublin_core.items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Mediafiles</h2>
+
+        {% for mediafile in object.list_mediafiles %}
+            <div>
+
+                <h3>Mediafile {{ mediafile.id }}</h3>
+
+                <a href="{% url mediafile-play object.id mediafile.id%}">PLAY</a>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>{{ mediafile.id }}</td>
+                        </tr>
+                        <tr>
+                            <td>original file</td>
+                            <td>{{ mediafile.is_original_file }}</td>
+                        </tr>
+                        <tr>
+                            <td>downloadable</td>
+                            <td>{{ mediafile.is_downloadable }}</td>
+                        </tr>
+                        <tr>
+                            <td>streamable</td>
+                            <td>{{ mediafile.is_streamable }}</td>
+                        </tr>
+                        <tr>
+                            <td>still</td>
+                            <td>{{ mediafile.is_still }}</td>
+                        </tr>
+                        <tr>
+                            <td>file name</td>
+                            <td>{{ mediafile.filename }}</td>
+                        </tr>
+                        <tr>
+                            <td>file extension</td>
+                            <td>{{ mediafile.file_extension }}</td>
+                        </tr>
+                    </tbody>
+
+                    <h4>Metadata</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metadata</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for key,value in mediafile.metadata.items %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </table>
+            </div>
+        {% endfor %}
+
+        <h2>Still</h2>
+
+        <img src="{{ object.vpx_still_url }}" alt="Still" />
+
+    </div>
+{% endblock content %}

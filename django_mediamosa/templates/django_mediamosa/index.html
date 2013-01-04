@@ -1,0 +1,66 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'MediaMosa' %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="content-main">
+        <table>
+            <thead>
+                <tr>
+                    <th>Asset</th>
+                    <th>Aangemaakt door</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for asset in object_list %}
+                <tr>
+                    <td><a href="{% url asset-details pk=asset.id %}">{{ asset.dublin_core.title }}</a></td>
+                    <td>{{ asset.dublin_core.creator }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock content %}
+
+{#
+<html>
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    </head>
+
+<body>
+
+    {% load mediamosa_extras %}
+
+
+    {% for asset in object_list %}
+
+        <h1></h1>
+
+        <img src="{{ asset.vpx_still_url }}" alt="" height="150">
+
+        <hr />
+    {% endfor %}
+</body>
+</html>
+#}
