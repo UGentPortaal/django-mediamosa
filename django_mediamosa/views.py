@@ -13,6 +13,10 @@ class AssetList(ListView):
         return asset_list
 
 
+class TinyMceAssetSelectionDialog(AssetList):
+    template_name = 'django_mediamosa/tinymce_asset_dialog.html'
+
+
 class AssetDetails(DetailView):
     template_name = 'django_mediamosa/asset_detail.html'
 

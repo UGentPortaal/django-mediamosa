@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     // looks for mediamosa classes and activates the player
-    $('span.mediamosa').each(function(index) {
+    $('img.mediamosa').each(function(index) {
         var asset_id = $(this).data('asset');
         var mediafile_id = $(this).data('mediafile');
 
@@ -11,7 +11,7 @@ $(document).ready(function() {
                  + "/mediafiles/" + mediafile_id + "/play",
             context: $(this)
         }).done(function(data) {
-            $(this).html(data);
+            $(this).replaceWith(data);
         });
     });
 
