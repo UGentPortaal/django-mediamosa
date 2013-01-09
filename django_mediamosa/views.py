@@ -13,10 +13,6 @@ class AssetList(ListView):
         return asset_list
 
 
-class TinyMceAssetSelectionDialog(AssetList):
-    template_name = 'django_mediamosa/tinymce_asset_dialog.html'
-
-
 class AssetDetails(DetailView):
     template_name = 'django_mediamosa/asset_detail.html'
 
@@ -28,8 +24,10 @@ class AssetDetails(DetailView):
 class PlayMediaFile(DetailView):
 
     def get_object(self, queryset=None):
-        pk = self.kwargs.get(self.pk_url_kwarg, None)
-        return api.mediafile(mediafile_id=pk)
+        # asset_id = self.request.GET.get('asset_id', '')
+        mediafile_id = self.request.GET.get('mediafile_id', '')
+
+        return api.mediafile(mediafile_id=mediafile_id)
 
     def render_to_response(self, context, **response_kwargs):
         output = self.object.play()
