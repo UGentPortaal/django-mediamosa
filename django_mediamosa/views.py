@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView
 
 from base import api
+from mediamosa.api import ApiException
 
 
 class AssetList(ListView):
@@ -26,8 +27,10 @@ class PlayMediaFile(DetailView):
     def get_object(self, queryset=None):
         # asset_id = self.request.GET.get('asset_id', '')
         mediafile_id = self.request.GET.get('mediafile_id', '')
-
-        return api.mediafile(mediafile_id=mediafile_id)
+        try:
+            return api.mediafile(mediafile_id=mediafile_id)
+        except ApiException:
+            raise Http404
 
     def render_to_response(self, context, **response_kwargs):
         output = self.object.play()
