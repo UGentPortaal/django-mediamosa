@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView
 
-from base import api
+from .base import api
 from mediamosa.api import ApiException
 
 

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from views import AssetList, AssetDetails, PlayMediaFile
+from .views import AssetList, AssetDetails, PlayMediaFile
 
 urlpatterns = [
 
